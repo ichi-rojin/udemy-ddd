@@ -25,13 +25,15 @@ namespace DDD.Domain.Entities
 
         public bool IsOK()
         {
-            if(DataDate < DateTime.Now.AddMonths(-1))
+            if (DataDate < DateTime.Now.AddMonths(-1))
             {
-                if(Temperature < 10)
+                if (Temperature < 10)
                 {
-
+                    return false;
                 }
             }
+
+            return true;
         }
     }
 }
