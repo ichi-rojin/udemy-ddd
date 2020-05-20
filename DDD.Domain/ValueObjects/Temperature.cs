@@ -1,8 +1,8 @@
-﻿using DDD.WinForm.Common;
+﻿using DDD.Domain.Helpers;
 
 namespace DDD.Domain.ValueObjects
 {
-    public sealed class Temperature
+    public sealed class Temperature : ValueObject<Temperature>
     {
         public const string UnitName = "℃";
         public const int DecimalPoint = 2;
@@ -16,9 +16,27 @@ namespace DDD.Domain.ValueObjects
         public string DisplayValue {
             get
             {
-                return CommonFunc.RoundString(Value, DecimalPoint)
-                    + UnitName;
+                return Value.RoundString(DecimalPoint);
             }
+        }
+        public string DisplayValueWithUnit
+        {
+            get
+            {
+                return Value.RoundString(DecimalPoint) + UnitName;
+            }
+        }
+        public string DisplayValueWithUnitSpace
+        {
+            get
+            {
+                return Value.RoundString(DecimalPoint) + " " + UnitName;
+            }
+        }
+
+        protected override bool EqualsCore(Temperature other)
+        {
+            return Value == other.Value;
         }
     }
 }
